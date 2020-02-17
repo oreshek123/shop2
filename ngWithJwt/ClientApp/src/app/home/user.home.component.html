@@ -1,0 +1,19 @@
+<div style="padding: 30px;">
+  <div class="row text-center justify-content-center" >
+    <mat-card class="col-md-3 m-3" *ngFor="let product of products">
+      <mat-card-header>
+        <mat-card-title>{{product.name}}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src="assets/product_album.jpg" alt="Product" />
+      <mat-card-content>
+        <h3>{{product.price}} $</h3>
+        <p>
+          {{product.description}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button class="mat-raised-button mat-primary" (click)="buy(product)">Add to cart</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

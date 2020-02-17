@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>{{description}}</h2>
+<form [formGroup]="dialogForm" *ngIf="loadCompleted$ | async">
+  <mat-dialog-content>
+    <input type="hidden" formControlName="id" />
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput required
+                 placeholder="Name"
+                 formControlName="name">
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Price</mat-label>
+          <input matInput required type="number"
+                 placeholder="Price"
+                 formControlName="price">
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Serial Number</mat-label>
+          <input matInput required
+                 placeholder="Serial number"
+                 formControlName="serialNumber">
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Description</mat-label>
+          <input matInput required
+                 placeholder="Description"
+                 formControlName="description">
+        </mat-form-field>
+      </div>
+    </div>
+
+
+
+    <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button class="mat-raised-button" (click)="close()">Cancel</button>
+    <button style="margin-left: 30px" class="mat-raised-button mat-primary" (click)="save()">Save</button>
+  </mat-dialog-actions>
+</form>

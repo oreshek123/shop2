@@ -1,0 +1,36 @@
+<mat-card style="margin-top: 200px">
+  <div class="row align-items-center">
+    <h1 class="offset-md-2 col-md-3 ">Shop SPA</h1>
+    <div class="col-md-6">
+
+      <form name="form" (ngSubmit)="loginForm.valid && onSubmit()" [formGroup]="loginForm">
+
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Login</mat-label>
+          <input matInput placeholder="Login" name="username" formControlName="username" required (keyup)="clearMessages()">
+          <mat-error *ngIf="f.submitted && !username.valid">
+            Please, enter Login.
+          </mat-error>
+        </mat-form-field>
+
+        <div>
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Password" name="password" formControlName="password" required type="password" (keyup)="clearMessages()">
+            <mat-error *ngIf="loginForm.submitted && !password.valid">
+              Please, enter Password.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <button class="col-md-2" [disabled]="loading" mat-raised-button color="primary">Login</button>
+          <button class="col-md-2" (click)="register()" style="margin-left: 30px" [disabled]="loading" mat-stroked-button color="primary">Register</button>
+        </div>
+       
+
+        <small>{{ error }}</small>
+
+      </form>
+    </div>
+  </div>
+</mat-card>

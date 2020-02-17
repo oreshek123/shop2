@@ -1,0 +1,109 @@
+<h2 mat-dialog-title>{{description}}</h2>
+<form [formGroup]="dialogForm" *ngIf="loadCompleted$ | async">
+  <mat-dialog-content>
+    <input type="hidden" formControlName="id" />
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Login</mat-label>
+          <input autocomplete="off" matInput required
+                 placeholder="Login"
+                 formControlName="userName">
+          <mat-error *ngIf="dialogForm.controls.userName.errors?.userNameError">{{dialogForm.controls.userName.errors?.userNameError}}</mat-error>
+          <mat-error *ngIf="dialogForm.controls.userName.errors?.pattern">Login can contains only numbers, latin letters or symbols ._-@</mat-error>
+          <mat-progress-bar mode="indeterminate" *ngIf="userNameloading$ | async"></mat-progress-bar>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>E-mail</mat-label>
+          <input autocomplete="off" matInput required
+                 placeholder="E-mail" type="text" [textMask]="{mask: mailMask}"
+                 formControlName="email">
+          <mat-error *ngIf="dialogForm.controls.email.errors?.pattern">E-mail incorrect format</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>First Name</mat-label>
+          <input autocomplete="off" matInput required
+                 placeholder="First Name"
+                 formControlName="familyName">
+          <mat-error *ngIf="dialogForm.controls.familyName.errors?.pattern">Field can contains only letters</mat-error>
+        </mat-form-field>
+
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Second Name</mat-label>
+          <input autocomplete="off" matInput required
+                 placeholder="Second Name"
+                 formControlName="givenName">
+          <mat-error *ngIf="dialogForm.controls.givenName.errors?.pattern">Field can contains only letters</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field class="full-width phone" appearance="outline">
+          <mat-label>Phone</mat-label>
+          <input matInput formControlName="phoneNumber"
+                 #searchClientPhone
+                 (focus)="sevenSpan.style.visibility = 'visible'"
+                 (focusout)="onFocusOut(sevenSpan, searchClientPhone)"
+                 (input)="onPhoneInput(sevenSpan, searchClientPhone)"
+                 maxlength="12" numbersOnlyPhone>
+          <span [style.visibility]="searchClientPhone['value'] == '' ? 'hidden' : 'visible'" #sevenSpan matPrefix>+&nbsp;</span>
+          <mat-error *ngIf="dialogForm.controls.phoneNumber.errors?.pattern">Phone number incorrect format</mat-error>
+          <mat-error *ngIf="dialogForm.controls.phoneNumber.errors?.maxlength">
+            Телефон должен содержать не более {{dialogForm.controls.phoneNumber.errors?.maxlength.requiredLength}} цифр
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <!--<div class="col-md-6">
+        <a (click)="toogleIsChangePassword()" style="cursor: pointer;" *ngIf="!dialogForm.value.isChangePassword">Сменить пароль</a>
+      </div>-->
+    </div>
+
+    <ng-container>
+      <h5>Enter Password</h5>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput type="text" required autocomplete="false"
+                   placeholder="Пароль"
+                   formControlName="password">
+            <mat-error *ngIf="dialogForm.get('password').getError('invalidPassword')" [matTooltip]="passwordTooltip">
+              {{dialogForm.get('password').getError('invalidPassword')}}
+            </mat-error>
+            <mat-error *ngIf="dialogForm.get('password').getError('invalidComparisonPassword')">
+              {{dialogForm.get('password').getError('invalidComparisonPassword')}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput type="text" required autocomplete="false"
+                   placeholder="Confirm Password"
+                   formControlName="confirmedPassword">
+            <mat-error *ngIf="dialogForm.get('confirmedPassword').getError('invalidPassword')" [matTooltip]="passwordTooltip">
+              {{dialogForm.get('confirmedPassword').getError('invalidPassword')}}
+            </mat-error>
+            <mat-error *ngIf="dialogForm.get('confirmedPassword').getError('invalidComparisonPassword')">
+              {{dialogForm.get('confirmedPassword').getError('invalidComparisonPassword')}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </ng-container>
+    <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button class="mat-raised-button" (click)="close()">Cancel</button>
+    <button style="margin-left: 30px" class="mat-raised-button mat-primary" (click)="save()">Register</button>
+  </mat-dialog-actions>
+</form>

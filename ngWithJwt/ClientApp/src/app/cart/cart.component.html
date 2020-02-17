@@ -1,0 +1,15 @@
+<button mat-button [matMenuTriggerFor]="cart" (click)="getCart()">Cart</button>
+<mat-menu #cart="matMenu">
+  <mat-list *ngIf="loading$ | async">
+  <h3 mat-subheader>Folders</h3>
+  <mat-list-item *ngFor="let item of cartItems">
+    <h4 mat-line>{{item.name}}</h4>
+    <p mat-line> {{item.price}} </p>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <h3 mat-subheader>Total</h3>
+  <mat-list-item *ngFor="let note of notes">
+    <h4 mat-line>{{total}}</h4>
+  </mat-list-item>
+</mat-list>
+</mat-menu>
